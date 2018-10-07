@@ -55,7 +55,7 @@ class AppHeader extends Component {
             <Header className="app-header">
             <div className="container">
               <div className="app-title" >
-                <Link to="/">My app App</Link>
+                <Link to="/">boutique-burger-client</Link>
               </div>
               <Menu
                 className="app-menu"

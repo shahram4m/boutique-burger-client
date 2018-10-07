@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {
-  Route,
-  withRouter,
-  Switch
-} from 'react-router-dom';
+import {  BrowserRouter as Router, Route,  withRouter,  Switch} from 'react-router';
 
 import { getCurrentUser } from '../util/APIUtils';
 import { ACCESS_TOKEN } from '../constants';
@@ -23,6 +19,7 @@ import { Layout, notification } from 'antd';
 const { Content } = Layout;
 
 class App extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -74,14 +71,14 @@ class App extends Component {
     this.props.history.push(redirectTo);
 
     notification[notificationType]({
-      message: 'Polling App',
+      message: 'boutique-burger-client App',
       description: description,
     });
   }
 
   handleLogin() {
     notification.success({
-      message: 'Polling App',
+      message: 'boutique-burger-client App',
       description: "You're successfully logged in.",
     });
     this.loadCurrentUser();
