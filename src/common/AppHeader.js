@@ -22,6 +22,7 @@ class AppHeader extends Component {
 
     render() {
         let menuItems;
+        console.log(this.props.currentUser);
         if(this.props.currentUser) {
           menuItems = [
             <Menu.Item key="/">

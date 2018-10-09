@@ -33,11 +33,11 @@ export function getAllPolls(page, size) {
     });
 }
 
-export function createPoll(pollData) {
+export function createBooth(boothData) {
     return request({
         url: API_BASE_URL + "/booths",
         method: 'POST',
-        body: JSON.stringify(pollData)
+        body: JSON.stringify(boothData)
     });
 }
 
@@ -82,8 +82,11 @@ export function checkEmailAvailability(email) {
 
 export function getCurrentUser() {
     if(!localStorage.getItem(ACCESS_TOKEN)) {
+
         return Promise.reject("No access token set.");
     }
+
+    console.log("ACCESS_TOKEN:"+ACCESS_TOKEN);
 
     return request({
         url: API_BASE_URL + "/user/me",

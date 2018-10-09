@@ -39,9 +39,11 @@ class App extends Component {
   }
 
   loadCurrentUser() {
+
     this.setState({
       isLoading: true
     });
+
     getCurrentUser()
     .then(response => {
       this.setState({
@@ -54,6 +56,8 @@ class App extends Component {
         isLoading: false
       });
     });
+
+    console.log("currentUser:"+ this.state.isAuthenticated);
   }
 
   componentWillMount() {
