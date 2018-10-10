@@ -4,7 +4,7 @@ import {
     withRouter
 } from 'react-router-dom';
 import './AppHeader.css';
-import pollIcon from '../logo.svg';
+import pollIcon from '../poll.svg';
 import { Layout, Menu, Dropdown, Icon } from 'antd';
 const Header = Layout.Header;
 
@@ -56,7 +56,7 @@ class AppHeader extends Component {
             <Header className="app-header">
             <div className="container">
               <div className="app-title" >
-                <Link to="/">boutique-burger-client</Link>
+                <Link to="/">react APP-client</Link>
               </div>
               <Menu
                 className="app-menu"

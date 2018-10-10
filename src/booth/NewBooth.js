@@ -41,7 +41,7 @@ class NewBooth extends Component {
     handleSubmit(event){
         event.preventDefault();
         const boothData={
-            booth: this.state.title,
+            title: this.state.booth.title,
             products : this.state.products.map(product => {
             return {title: product.title}
             }),
@@ -61,9 +61,7 @@ class NewBooth extends Component {
         });
     }
 
-
-
-    validationBooth = (boothTitle) => {
+    validateBooth = (boothTitle) => {
         if(boothTitle.length == 0)
         {
             return {
@@ -83,15 +81,16 @@ class NewBooth extends Component {
                 }
         }
 
-
     handleBoothChange(event) {
         const value = event.target.value;
         this.setState({
             booth: {
                 title: value,
-                ...this.validateQuestion(value)
+                ...this.validateBooth(value)
             }
         });
+
+        console.log("boothTitle:" + this.state.booth.title);
     }
 
     validateProduct = (productTitle) => {
@@ -128,7 +127,7 @@ class NewBooth extends Component {
     }
 
     isFormInvalid() {
-            if(this.state.product.validateStatus !== 'success') {
+            if(this.state.products.validateStatus !== 'success') {
                 return true;
             }
 
@@ -144,12 +143,12 @@ class NewBooth extends Component {
 
         const productViews = [];
         this.state.products.forEach((product, index) => {
-productViews.push(<BoothProduct key={index} product={product} productNumber={index} removeProduct={this.removeProduct} handleProductChange={this.handleProductChange}/>);
+        productViews.push(<BoothProduct key={index} product={product} productNumber={index} removeProduct={this.removeProduct} handleProductChange={this.handleProductChange}/>);
         });
 
 
         return (
-            <div className="new-booth-container">
+            <div className="new-poll-container">
             <h1 className="page-title">Create Booth</h1>
             <div className="new-poll-content">
 
@@ -159,9 +158,9 @@ productViews.push(<BoothProduct key={index} product={product} productNumber={ind
             <TextArea
                     placeholder="Enter your booth Title"
                     style = {{ fontSize: '16px' }}
-                    autosize={{ minRows: 3, maxRows: 6 }}
+                    autosize = {{ minRows: 3, maxRows: 6 }}
                     name = "booth"
-                    value = {this.state.booth.text}
+                    value = {this.state.booth.title}
                     onChange = {this.handleBoothChange} />
             </FormItem>
 
@@ -183,7 +182,7 @@ productViews.push(<BoothProduct key={index} product={product} productNumber={ind
                             <Button type="primary"
                                 htmlType="submit"
                                 size="large"
-                                disabled={this.isFormInvalid()}
+
                                 className="create-poll-form-button">Create Booth</Button>
                         </FormItem>
                     </Form>
@@ -193,14 +192,15 @@ productViews.push(<BoothProduct key={index} product={product} productNumber={ind
     }
 }
 
+//disabled={this.isFormInvalid()}
 function BoothProduct(props) {
     return (
         <FormItem validateStatus={props.product.validateStatus}
         help={props.product.errorMsg} className="poll-form-row">
             <Input
-                placeholder = {'Choice ' + (props.productNumber + 1)}
+                placeholder = {'Product ' + (props.productNumber + 1)}
                 size="large"
-                value={props.product.text}
+                value={props.product.title}
                 className={ props.productNumber > 1 ? "optional-choice": null}
                 onChange={(event) => props.handleProductChange(event, props.productNumber)} />
 

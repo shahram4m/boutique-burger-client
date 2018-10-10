@@ -34,6 +34,9 @@ export function getAllPolls(page, size) {
 }
 
 export function createBooth(boothData) {
+
+    console.log("boothData:" + JSON.stringify(boothData));
+
     return request({
         url: API_BASE_URL + "/booths",
         method: 'POST',
