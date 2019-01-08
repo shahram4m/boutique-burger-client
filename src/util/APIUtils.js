@@ -5,22 +5,46 @@ const request = (options) => {
         'Content-Type': 'application/json',
     })
 
-    if(localStorage.getItem(ACCESS_TOKEN)) {
+    if (localStorage.getItem(ACCESS_TOKEN)) {
         headers.append('Authorization', 'Bearer ' + localStorage.getItem(ACCESS_TOKEN))
     }
 
-    const defaults = {headers: headers};
+    const defaults = { headers: headers };
     options = Object.assign({}, defaults, options);
 
     return fetch(options.url, options)
-    .then(response =>
-        response.json().then(json => {
-            if(!response.ok) {
-                return Promise.reject(json);
-            }
-            return json;
-        })
-    );
+        .then(response =>
+            response.json().then(json => {
+                if (!response.ok) {
+                    return Promise.reject(json);
+                }
+                return json;
+            })
+        );
+};
+
+const requestFile = (options) => {
+    const headers = new Headers({
+        //'content-type': 'multipart/form-data'
+        //'Content-Type': 'application/json',
+    })
+
+    if (localStorage.getItem(ACCESS_TOKEN)) {
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem(ACCESS_TOKEN))
+    }
+
+    const defaults = { headers: headers };
+    options = Object.assign({}, defaults, options);
+
+    return fetch(options.url, options)
+        .then(response =>
+            response.json().then(json => {
+                if (!response.ok) {
+                    return Promise.reject(json);
+                }
+                return json;
+            })
+        );
 };
 
 export function getAllPolls(page, size) {
@@ -31,6 +55,35 @@ export function getAllPolls(page, size) {
         url: API_BASE_URL + "/booths?page=" + page + "&size=" + size,
         method: 'GET'
     });
+}
+
+export function uploadFile(file) {
+    let data = new FormData();
+    //data.append('enctype','multipart/form-data');
+    data.append('file', file);
+    return requestFile({
+        url: API_BASE_URL + "/uploadFile",
+        method: 'POST',
+        body: data
+    });
+
+
+    // const headers = new Headers({
+    //     // 'content-type': 'multipart/form-data'
+    //     //'Content-Type': 'application/json',
+    //  })
+    //  headers.append('Authorization', 'Bearer ' + localStorage.getItem(ACCESS_TOKEN));
+
+    // fetch(API_BASE_URL + "/uploadFile", {
+    //   method: 'POST',
+    //   headers: headers,
+    //   body: data
+    // }).then(response => {
+    //   this.setState({error: '', msg: 'Sucessfully uploaded file'});
+    // }).catch(err => {
+    //   this.setState({error: err});
+    // });
+
 }
 
 export function createBooth(boothData) {
@@ -82,14 +135,13 @@ export function checkEmailAvailability(email) {
     });
 }
 
-
 export function getCurrentUser() {
-    if(!localStorage.getItem(ACCESS_TOKEN)) {
+    if (!localStorage.getItem(ACCESS_TOKEN)) {
 
         return Promise.reject("No access token set.");
     }
 
-    console.log("ACCESS_TOKEN:"+ACCESS_TOKEN);
+    console.log("ACCESS_TOKEN:" + ACCESS_TOKEN);
 
     return request({
         url: API_BASE_URL + "/user/me",

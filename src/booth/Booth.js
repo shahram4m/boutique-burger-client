@@ -8,7 +8,7 @@ class Booth extends Component {
         return (
             <div className="page-not-found">
                 <h1 className="title">
-                    404
+                    Booth page not found  404
                 </h1>
                 <div className="desc">
                     The Page you are looking for was not found.
